@@ -1,0 +1,266 @@
+{
+  "servers": {
+    "server1": {
+      "name": "SkyBlock Paradise",
+      "ip": "skyblock.minecraft.com",
+      "players": 245,
+      "maxPlayers": 500,
+      "online": true,
+      "tags": ["SkyBlock", "Economia", "PvE"],
+      "rating": 4.5,
+      "description": "Servidor de SkyBlock com economia balanceada",
+      "version": "1.20.4",
+      "createdAt": 1697385600000,
+      "ratings": {
+        "user1": 5,
+        "user2": 4,
+        "user3": 5
+      }
+    },
+    "server2": {
+      "name": "PvP Arena Pro",
+      "ip": "pvp.minecraft.com",
+      "players": 189,
+      "maxPlayers": 300,
+      "online": true,
+      "tags": ["PvP", "Competitivo", "Ranked"],
+      "rating": 4.2,
+      "description": "Arena de PvP com sistema de ranking",
+      "version": "1.20.4",
+      "createdAt": 1697385600000,
+      "ratings": {
+        "user1": 4,
+        "user2": 4,
+        "user4": 5
+      }
+    },
+    "server3": {
+      "name": "Creative World",
+      "ip": "creative.minecraft.com",
+      "players": 156,
+      "maxPlayers": 400,
+      "online": true,
+      "tags": ["Creative", "Construção", "Plot"],
+      "rating": 4.7,
+      "description": "Mundo criativo com plots ilimitados",
+      "version": "1.20.4",
+      "createdAt": 1697385600000,
+      "ratings": {
+        "user1": 5,
+        "user2": 5,
+        "user3": 4
+      }
+    },
+    "server4": {
+      "name": "Survival Plus",
+      "ip": "survival.minecraft.com",
+      "players": 320,
+      "maxPlayers": 600,
+      "online": true,
+      "tags": ["Survival", "Vanilla", "Hard"],
+      "rating": 4.6,
+      "description": "Survival vanilla com algumas melhorias",
+      "version": "1.20.4",
+      "createdAt": 1697385600000,
+      "ratings": {
+        "user2": 5,
+        "user3": 4,
+        "user5": 5
+      }
+    },
+    "server5": {
+      "name": "Mini-Games Hub",
+      "ip": "minigames.minecraft.com",
+      "players": 450,
+      "maxPlayers": 800,
+      "online": true,
+      "tags": ["Mini-Games", "BedWars", "SkyWars"],
+      "rating": 4.8,
+      "description": "Hub de mini-games com vários modos",
+      "version": "1.20.4",
+      "createdAt": 1697385600000,
+      "ratings": {
+        "user1": 5,
+        "user2": 5,
+        "user3": 5,
+        "user4": 4
+      }
+    }
+  },
+  "mods": {
+    "mod1": {
+      "name": "OptiFine",
+      "description": "Melhora drasticamente a performance do jogo e adiciona suporte a shaders incríveis",
+      "downloads": 2500000,
+      "version": "v1.20.4",
+      "category": "Performance",
+      "author": "sp614x",
+      "downloadUrl": "https://optifine.net/downloads",
+      "createdAt": 1697385600000
+    },
+    "mod2": {
+      "name": "JEI (Just Enough Items)",
+      "description": "Visualize todas as receitas e itens do jogo facilmente",
+      "downloads": 1800000,
+      "version": "v1.20.4",
+      "category": "Utility",
+      "author": "mezz",
+      "downloadUrl": "#",
+      "createdAt": 1697385600000
+    },
+    "mod3": {
+      "name": "Biomes O' Plenty",
+      "description": "Adiciona mais de 80 novos biomas ao mundo do Minecraft",
+      "downloads": 1200000,
+      "version": "v1.20.4",
+      "category": "World Generation",
+      "author": "Forstride",
+      "downloadUrl": "#",
+      "createdAt": 1697385600000
+    },
+    "mod4": {
+      "name": "JourneyMap",
+      "description": "Mapa em tempo real do mundo enquanto você explora",
+      "downloads": 950000,
+      "version": "v1.20.4",
+      "category": "Utility",
+      "author": "techbrew",
+      "downloadUrl": "#",
+      "createdAt": 1697385600000
+    },
+    "mod5": {
+      "name": "Twilight Forest",
+      "description": "Dimensão nova com dungeons, bosses e itens únicos",
+      "downloads": 880000,
+      "version": "v1.20.4",
+      "category": "Adventure",
+      "author": "Benimatic",
+      "downloadUrl": "#",
+      "createdAt": 1697385600000
+    },
+    "mod6": {
+      "name": "Create",
+      "description": "Mod de engenharia com máquinas e automação",
+      "downloads": 750000,
+      "version": "v1.20.4",
+      "category": "Technology",
+      "author": "simibubi",
+      "downloadUrl": "#",
+      "createdAt": 1697385600000
+    }
+  },
+  "skins": {
+    "skin1": {
+      "name": "Ninja Warrior",
+      "description": "Skin de ninja com armadura preta e detalhes em vermelho",
+      "icon": "user",
+      "imageUrl": null,
+      "author": "SkinMaster",
+      "downloads": 15000,
+      "createdAt": 1697385600000,
+      "tags": ["Ninja", "Warrior", "Dark"]
+    },
+    "skin2": {
+      "name": "Wizard Master",
+      "description": "Mago poderoso com cajado mágico e túnica roxa",
+      "icon": "zap",
+      "imageUrl": null,
+      "author": "MagicSkins",
+      "downloads": 12000,
+      "createdAt": 1697385600000,
+      "tags": ["Magic", "Wizard", "Purple"]
+    },
+    "skin3": {
+      "name": "Knight Defender",
+      "description": "Cavaleiro medieval com armadura dourada completa",
+      "icon": "sword",
+      "imageUrl": null,
+      "author": "KnightCraft",
+      "downloads": 18000,
+      "createdAt": 1697385600000,
+      "tags": ["Knight", "Medieval", "Gold"]
+    },
+    "skin4": {
+      "name": "Cyber Punk",
+      "description": "Personagem futurista com elementos neon",
+      "icon": "user",
+      "imageUrl": null,
+      "author": "FutureSkins",
+      "downloads": 9000,
+      "createdAt": 1697385600000,
+      "tags": ["Cyber", "Futuristic", "Neon"]
+    },
+    "skin5": {
+      "name": "Forest Ranger",
+      "description": "Guardião da floresta com arco e flechas",
+      "icon": "user",
+      "imageUrl": null,
+      "author": "NatureSkins",
+      "downloads": 11000,
+      "createdAt": 1697385600000,
+      "tags": ["Nature", "Ranger", "Green"]
+    },
+    "skin6": {
+      "name": "Pirate Captain",
+      "description": "Capitão pirata com chapéu e espada",
+      "icon": "user",
+      "imageUrl": null,
+      "author": "SeaSkins",
+      "downloads": 13500,
+      "createdAt": 1697385600000,
+      "tags": ["Pirate", "Sea", "Adventure"]
+    }
+  },
+  "news": {
+    "news1": {
+      "title": "Minecraft 1.21 - The Tricky Trials",
+      "summary": "Nova atualização traz novos blocos, mobs e mecânicas de jogo. O Trial Chambers é uma nova estrutura com desafios únicos!",
+      "content": "A atualização 1.21 do Minecraft traz mudanças significativas...",
+      "date": 1697385600000,
+      "author": "Mojang Studios",
+      "link": "https://minecraft.net",
+      "image": null,
+      "category": "Update"
+    },
+    "news2": {
+      "title": "Novo Servidor PvP Aberto",
+      "summary": "Servidor dedicado a batalhas épicas com sistema de ranking, torneios semanais e prêmios incríveis!",
+      "content": "Estamos felizes em anunciar o lançamento do novo servidor...",
+      "date": 1697299200000,
+      "author": "PvP Community",
+      "link": null,
+      "image": null,
+      "category": "Server"
+    },
+    "news3": {
+      "title": "Concurso de Construção",
+      "summary": "Participe do maior concurso de construção do ano com prêmios de até $1000!",
+      "content": "O concurso anual de construção está de volta...",
+      "date": 1697126400000,
+      "author": "Build Masters",
+      "link": null,
+      "image": null,
+      "category": "Event"
+    },
+    "news4": {
+      "title": "OptiFine 1.20.4 Lançado",
+      "summary": "Nova versão do OptiFine com melhorias de performance e compatibilidade com shaders modernos",
+      "content": "O OptiFine acaba de lançar sua versão para Minecraft 1.20.4...",
+      "date": 1697040000000,
+      "author": "sp614x",
+      "link": "https://optifine.net",
+      "image": null,
+      "category": "Mod"
+    },
+    "news5": {
+      "title": "Campeonato de SkyBlock",
+      "summary": "Inscrições abertas para o campeonato mundial de SkyBlock com premiação total de $5000",
+      "content": "O maior torneio de SkyBlock do mundo está chegando...",
+      "date": 1696953600000,
+      "author": "SkyBlock League",
+      "link": null,
+      "image": null,
+      "category": "Tournament"
+    }
+  }
+}

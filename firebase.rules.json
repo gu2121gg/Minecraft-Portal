@@ -1,0 +1,110 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid || (auth != null && root.child('users/' + auth.uid + '/role').val() === 'admin')",
+        ".write": "$uid === auth.uid",
+        "email": {
+          ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$/i)"
+        },
+        "username": {
+          ".validate": "newData.isString() && newData.val().length >= 3 && newData.val().length <= 20"
+        },
+        "role": {
+          ".write": "root.child('users/' + auth.uid + '/role').val() === 'admin'"
+        },
+        "stats": {
+          ".read": true,
+          "favorites": {
+            ".write": "$uid === auth.uid"
+          },
+          "ratings": {
+            ".write": "$uid === auth.uid"
+          }
+        }
+      }
+    },
+    "servers": {
+      ".read": true,
+      "$serverId": {
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['name', 'ip', 'players', 'maxPlayers', 'online', 'tags'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50"
+        },
+        "ip": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "players": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "maxPlayers": {
+          ".validate": "newData.isNumber() && newData.val() >= newData.parent().child('players').val()"
+        },
+        "online": {
+          ".validate": "newData.isBoolean()"
+        },
+        "tags": {
+          ".validate": "newData.hasChildren()"
+        },
+        "rating": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 5"
+        },
+        "ratings": {
+          "$uid": {
+            ".write": "$uid === auth.uid",
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5"
+          }
+        }
+      }
+    },
+    "mods": {
+      ".read": true,
+      "$modId": {
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['name', 'description', 'downloads', 'version'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 500"
+        },
+        "downloads": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "version": {
+          ".validate": "newData.isString()"
+        }
+      }
+    },
+    "skins": {
+      ".read": true,
+      "$skinId": {
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['name', 'description'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 300"
+        }
+      }
+    },
+    "news": {
+      ".read": true,
+      "$newsId": {
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['title', 'summary', 'date'])",
+        "title": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 200"
+        },
+        "summary": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 500"
+        },
+        "date": {
+          ".validate": "newData.isNumber()"
+        }
+      }
+    }
+  }
+}

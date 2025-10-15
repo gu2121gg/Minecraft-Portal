@@ -1,0 +1,39 @@
+{
+  "name": "minecraft-portal",
+  "version": "2.0.0",
+  "description": "Portal completo para servidores, mods, skins e notícias do Minecraft",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -p 8000",
+    "dev": "npx serve -p 8000",
+    "build": "echo 'Build não necessário - app em vanilla JS'",
+    "deploy": "firebase deploy",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "deploy:rules": "firebase deploy --only database",
+    "test": "echo 'Testes não configurados ainda'"
+  },
+  "keywords": [
+    "minecraft",
+    "portal",
+    "firebase",
+    "pwa",
+    "gaming"
+  ],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "devDependencies": {
+    "firebase-tools": "^13.0.0",
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seu-usuario/minecraft-portal"
+  },
+  "bugs": {
+    "url": "https://github.com/seu-usuario/minecraft-portal/issues"
+  },
+  "homepage": "https://github.com/seu-usuario/minecraft-portal#readme"
+}

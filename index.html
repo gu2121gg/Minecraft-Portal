@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal completo para servidores, mods, skins e notícias do Minecraft">
+    <meta name="theme-color" content="#ffffff">
+    <title>Minecraft Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    
+    <!-- Módulos da aplicação -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+</head>
+<body>
+    <!-- Tela de carregamento -->
+    <div id="loading-screen" class="loading-screen">
+        <video id="loading-video" autoplay muted loop preload="auto" playsinline>
+            <source src="assets/media1.mp4" type="video/mp4">
+        </video>
+        
+        <div class="loading-overlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <h2 class="loading-text">Carregando...</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-percentage">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de Login -->
+    <div id="login-screen" class="login-screen">
+        <video id="login-video" autoplay muted loop preload="auto" playsinline>
+            <source src="assets/media2.mp4" type="video/mp4">
+        </video>
+        
+        <div class="login-overlay">
+            <div class="login-container">
+                <div class="minecraft-logo">
+                    <h1><i data-lucide="gamepad-2"></i> MineCraft Portal</h1>
+                    <p>Entre para acessar o portal</p>
+                </div>
+                
+                <form id="login-form" class="login-form">
+                    <div class="input-group">
+                        <label for="email"><i data-lucide="mail"></i> Email</label>
+                        <input type="email" id="email" name="email" placeholder="Digite seu email" required autocomplete="email" aria-label="Email">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password"><i data-lucide="lock"></i> Senha</label>
+                        <input type="password" id="password" name="password" placeholder="Digite sua senha" required autocomplete="current-password" aria-label="Senha">
+                    </div>
+                    
+                    <div class="input-group" id="username-group" style="display: none;">
+                        <label for="username"><i data-lucide="user"></i> Nome de Usuário</label>
+                        <input type="text" id="username" name="username" placeholder="Escolha um nome de usuário" autocomplete="username" aria-label="Nome de usuário">
+                    </div>
+                    
+                    <button type="submit" class="login-btn" id="auth-btn">
+                        <span class="btn-text">Entrar no Portal</span>
+                        <span class="btn-loading hidden">Processando...</span>
+                    </button>
+                    
+                    <button type="button" class="register-toggle-btn" id="toggle-mode">
+                        Não tem conta? Registre-se
+                    </button>
+                    
+                    <div class="login-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <span>Lembrar de mim</span>
+                        </label>
+                        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div id="main-content" class="main-content hidden">
+        <!-- Múltiplos vídeos de fundo - Carregamento otimizado -->
+        <video id="main-video-1" class="main-video active" autoplay muted loop preload="metadata" playsinline data-src="assets/media2.mp4">
+            <source src="assets/media2.mp4" type="video/mp4">
+        </video>
+        <video id="main-video-2" class="main-video" muted loop preload="none" playsinline data-src="assets/media3.mp4">
+            <source data-src="assets/media3.mp4" type="video/mp4">
+        </video>
+        <video id="main-video-3" class="main-video" muted loop preload="none" playsinline data-src="assets/media4.mp4">
+            <source data-src="assets/media4.mp4" type="video/mp4">
+        </video>
+        <video id="main-video-4" class="main-video" muted loop preload="none" playsinline data-src="assets/media5.mp4">
+            <source data-src="assets/media5.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Header/Navegação -->
+        <header class="main-header">
+            <div class="logo">
+                <h1><i data-lucide="gamepad-2"></i> MineCraft Portal</h1>
+            </div>
+            <nav class="main-nav" role="navigation" aria-label="Menu principal">
+                <button class="nav-btn active" data-section="home" aria-label="Ir para Início"><i data-lucide="home"></i> Início</button>
+                <button class="nav-btn" data-section="servers" aria-label="Ir para Servidores"><i data-lucide="server"></i> Servidores</button>
+                <button class="nav-btn" data-section="mods" aria-label="Ir para Mods"><i data-lucide="settings"></i> Mods</button>
+                <button class="nav-btn" data-section="skins" aria-label="Ir para Skins"><i data-lucide="user"></i> Skins</button>
+                <button class="nav-btn" data-section="news" aria-label="Ir para Notícias"><i data-lucide="newspaper"></i> Notícias</button>
+            </nav>
+            <div class="header-controls">
+                <div class="video-controls">
+                    <button id="prev-video" class="video-btn" aria-label="Vídeo anterior"><i data-lucide="chevron-left"></i></button>
+                    <span id="video-counter" aria-live="polite">1 / 4</span>
+                    <button id="next-video" class="video-btn" aria-label="Próximo vídeo"><i data-lucide="chevron-right"></i></button>
+                </div>
+                <div class="user-menu-container">
+                    <button id="user-menu-btn" class="user-menu-btn" aria-label="Menu do usuário" aria-haspopup="true">
+                        <i data-lucide="user-circle"></i>
+                    </button>
+                    <div id="user-menu" class="user-menu" role="menu">
+                        <div class="user-info">
+                            <span class="user-name" id="user-display-name">Usuário</span>
+                            <span class="user-email" id="user-display-email">email@exemplo.com</span>
+                        </div>
+                        <button class="menu-item" id="logout-btn" role="menuitem">
+                            <i data-lucide="log-out"></i> Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Seção Inicial -->
+        <section id="home-section" class="content-section active">
+            <div class="hero-content">
+                <h1 class="hero-title">Bem-vindo ao Portal Minecraft</h1>
+                <p class="hero-subtitle">Descubra servidores, mods, skins e muito mais!</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Servidores</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Mods</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Skins</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Servidores -->
+        <section id="servers-section" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="server"></i> Servidores Populares</h2>
+                <p>Encontre os melhores servidores para jogar</p>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar servidores..." aria-label="Buscar servidores">
+                    <i data-lucide="search"></i>
+                </div>
+            </div>
+            <div class="cards-grid">
+                <div class="server-card">
+                    <div class="card-header">
+                        <h3>SkyBlock Paradise</h3>
+                        <span class="status online">● Online</span>
+                    </div>
+                    <p class="server-ip">IP: skyblock.minecraft.com</p>
+                    <p class="server-players"><i data-lucide="users"></i> 245/500 jogadores</p>
+                    <div class="server-tags">
+                        <span class="tag">SkyBlock</span>
+                        <span class="tag">Economia</span>
+                    </div>
+                </div>
+                <div class="server-card">
+                    <div class="card-header">
+                        <h3>PvP Arena Pro</h3>
+                        <span class="status online">● Online</span>
+                    </div>
+                    <p class="server-ip">IP: pvp.minecraft.com</p>
+                    <p class="server-players"><i data-lucide="users"></i> 189/300 jogadores</p>
+                    <div class="server-tags">
+                        <span class="tag">PvP</span>
+                        <span class="tag">Competitivo</span>
+                    </div>
+                </div>
+                <div class="server-card">
+                    <div class="card-header">
+                        <h3>Creative World</h3>
+                        <span class="status online">● Online</span>
+                    </div>
+                    <p class="server-ip">IP: creative.minecraft.com</p>
+                    <p class="server-players"><i data-lucide="users"></i> 156/400 jogadores</p>
+                    <div class="server-tags">
+                        <span class="tag">Creative</span>
+                        <span class="tag">Construção</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Mods -->
+        <section id="mods-section" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="settings"></i> Mods Recomendados</h2>
+                <p>Melhore sua experiência de jogo</p>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar mods..." aria-label="Buscar mods">
+                    <i data-lucide="search"></i>
+                </div>
+            </div>
+            <div class="cards-grid">
+                <div class="mod-card">
+                    <h3>OptiFine</h3>
+                    <p>Melhora performance e adiciona shaders</p>
+                    <div class="mod-info">
+                        <span class="downloads"><i data-lucide="download"></i> 2.5M downloads</span>
+                        <span class="version">v1.20.4</span>
+                    </div>
+                </div>
+                <div class="mod-card">
+                    <h3>JEI (Just Enough Items)</h3>
+                    <p>Visualize receitas e itens facilmente</p>
+                    <div class="mod-info">
+                        <span class="downloads"><i data-lucide="download"></i> 1.8M downloads</span>
+                        <span class="version">v1.20.4</span>
+                    </div>
+                </div>
+                <div class="mod-card">
+                    <h3>Biomes O' Plenty</h3>
+                    <p>Adiciona novos biomas ao mundo</p>
+                    <div class="mod-info">
+                        <span class="downloads"><i data-lucide="download"></i> 1.2M downloads</span>
+                        <span class="version">v1.20.4</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Skins -->
+        <section id="skins-section" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="user"></i> Skins do Minecraft</h2>
+                <p>Busque jogadores e baixe skins</p>
+                
+                <!-- Busca por Username estilo NameMC -->
+                <div class="username-search-container">
+                    <input type="text" id="username-search" class="username-search-input" placeholder="Digite o username do jogador..." aria-label="Buscar por username">
+                    <button id="search-username-btn" class="search-username-btn">
+                        <i data-lucide="search"></i> Buscar
+                    </button>
+                </div>
+                
+                <!-- Resultado da busca -->
+                <div id="skin-search-result" class="skin-search-result hidden"></div>
+            </div>
+            
+            <!-- Skins Populares -->
+            <div class="section-header">
+                <h3 style="color: white; font-size: 24px; text-align: center; margin: 40px 0 20px;">Skins Populares</h3>
+            </div>
+            <div class="cards-grid">
+                <div class="skin-card">
+                    <div class="skin-preview"><i data-lucide="user" class="skin-icon"></i></div>
+                    <h3>Ninja Warrior</h3>
+                    <p>Skin de ninja com armadura</p>
+                    <button class="download-btn">Baixar Skin</button>
+                </div>
+                <div class="skin-card">
+                    <div class="skin-preview"><i data-lucide="zap" class="skin-icon"></i></div>
+                    <h3>Wizard Master</h3>
+                    <p>Mago poderoso com cajado</p>
+                    <button class="download-btn">Baixar Skin</button>
+                </div>
+                <div class="skin-card">
+                    <div class="skin-preview"><i data-lucide="sword" class="skin-icon"></i></div>
+                    <h3>Knight Defender</h3>
+                    <p>Cavaleiro com armadura dourada</p>
+                    <button class="download-btn">Baixar Skin</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Notícias -->
+        <section id="news-section" class="content-section">
+            <div class="section-header">
+                <h2><i data-lucide="newspaper"></i> Últimas Notícias</h2>
+                <p>Fique por dentro das novidades</p>
+            </div>
+            <div class="news-list">
+                <article class="news-item">
+                    <div class="news-date">15 Out 2024</div>
+                    <h3>Minecraft 1.21 - The Tricky Trials</h3>
+                    <p>Nova atualização traz novos blocos, mobs e mecânicas de jogo...</p>
+                </article>
+                <article class="news-item">
+                    <div class="news-date">12 Out 2024</div>
+                    <h3>Novo Servidor PvP Aberto</h3>
+                    <p>Servidor dedicado a batalhas épicas com sistema de ranking...</p>
+                </article>
+                <article class="news-item">
+                    <div class="news-date">10 Out 2024</div>
+                    <h3>Concurso de Construção</h3>
+                    <p>Participe do maior concurso de construção do ano...</p>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <!-- Indicador de carregamento (fora do main-content) -->
+    <div id="video-loading" class="video-loading hidden">
+        <div class="loading-spinner"></div>
+        <span>Carregando vídeo...</span>
+    </div>
+
+    <script src="firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/video.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/portal.js"></script>
+    <script src="js/skins.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Registrar Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Erro ao registrar Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
